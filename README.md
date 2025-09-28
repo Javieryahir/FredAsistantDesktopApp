@@ -1,7 +1,7 @@
 # 🖥️ Electron + React + Vite App
 
-This project is a **desktop app** built with **Electron**, **React**, and **Vite**.  
-It includes **hot reload** during development and a production-ready build.
+This project is a **desktop application** built using **Electron**, **React**, and **Vite**.  
+It supports **hot reload** during development and is ready for production builds.
 
 ---
 
@@ -16,6 +16,9 @@ It includes **hot reload** during development and a production-ready build.
 │ └─ App.jsx
 └─ index.html <- Vite HTML template
 
+yaml
+Copy code
+
 ---
 
 ## ⚡ Requirements
@@ -28,30 +31,40 @@ It includes **hot reload** during development and a production-ready build.
 
 ## 💻 Installation
 
+1. Clone the repository:
+
+```bash
 git clone https://github.com/username/my-project.git
 cd my-project
+Install dependencies:
+
+bash
+Copy code
 npm install
 🚀 Development with Hot Reload
+Run both React (Vite) and Electron together:
+
 bash
 Copy code
 npm run dev
-Runs Vite for React and Electron at the same time.
-
 Hot reload works automatically for React components.
 
-To enable hot reload for the main process (electron.js), install:
+To enable hot reload for the Electron main process (electron.js):
 
 bash
 Copy code
 npm install electron-reload --save-dev
-Then add at the top of electron.js:
+Then, add the following at the top of electron.js:
 
 javascript
 Copy code
-if (require('electron-is-dev')) {
-require('electron-reload')(**dirname, {
-electron: require(`${**dirname}/node_modules/electron`)
-});
+import isDev from 'electron-is-dev';
+import path from 'path';
+
+if (isDev) {
+  import('electron-reload')(`${__dirname}`, {
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+  });
 }
 🏗️ Production Build
 Build the React app:
@@ -60,20 +73,20 @@ bash
 Copy code
 npm run build
 Package the app with Electron Builder:
-npm run dist
-This will create an executable for your operating system.
 
-React files are included in the dist/ folder.
+bash
+Copy code
+npm run dist
+This creates an executable for your operating system.
+
+The built React files are included in the dist/ folder.
 
 ⚙️ Useful Scripts
-Command Description
-npm run dev:vite Run only Vite (React) with hot reload
-npm run dev:electron Start Electron pointing to the Vite server
-npm run dev Run Vite + Electron together for full development
-npm run build Generate React build (dist/)
-npm run start Start Electron loading the production build
-npm run dist Package the app with electron-builder
-
-```
-
+Command	Description
+npm run dev:vite	Run only Vite (React) with hot reload
+npm run dev:electron	Start Electron pointing to the Vite server
+npm run dev	Run Vite + Electron together (full dev)
+npm run build	Generate React build (dist/)
+npm run start	Start Electron loading the production build
+npm run dist	Package the app with electron-builder
 ```
